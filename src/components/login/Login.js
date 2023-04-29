@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-    let navigate = useNavigate();
+  let navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [pasword, setPassword] = useState("");
   const  loginUser = (login) => {
@@ -16,11 +16,21 @@ const Login = () => {
       })
       .then(function (response) {
         console.log(response.data.token);
+        const userRole = response.data.role;
         localStorage.setItem(
           "Authentication",
           response.data.token
         );
-        navigate("/devices")
+        localStorage.setItem(
+          "Role",
+          response.data.role
+        );
+        if( userRole === "USER"){
+          navigate("/devices")
+        }else if(userRole === "ADMIN"){
+          navigate("/admin/devices")
+        }
+        
       })
       .catch(function (error) {
         console.log(error);

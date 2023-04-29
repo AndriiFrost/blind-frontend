@@ -1,13 +1,32 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 
 const Registration = () => {
+  let navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [pasword, setPassword] = useState("");
 
+  function registerUser(registrationUser) {
+    console.log(registrationUser);
+  
+    axios.post('http://localhost:8084/api/v1/auth/register', {
+      firstName: registrationUser.name,
+      lastName:  registrationUser.surname,
+      email:  registrationUser.email,
+      password:  registrationUser.password,
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+    navigate("/login")
+  }
   return (
     <div className="wrapper">
       <div className="form">
@@ -68,21 +87,5 @@ const Registration = () => {
   );
 };
 
-function registerUser(registrationUser) {
-  console.log(registrationUser);
-
-  axios.post('http://localhost:8084/api/v1/auth/register', {
-    firstName: registrationUser.name,
-    lastName:  registrationUser.surname,
-    email:  registrationUser.email,
-    password:  registrationUser.password,
-  })
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-}
 
 export default Registration;
