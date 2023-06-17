@@ -40,14 +40,20 @@ const AdminDeviceList = (props) => {
              <AdminBlind key= {el.id} blind = {el}/>
             ))}
           </main>
-    
-    
-
         </div>
-         
         );
   }
   return ( <div className="blind">
+      <header> List of not active user devices</header>
+        <button
+              type="button"
+              className="submit"
+              onClick={() =>
+                navigate("/admin/devices/add")
+              }
+            >
+              Create
+            </button>
       <h3>No blind present</h3>
   </div>)
 };

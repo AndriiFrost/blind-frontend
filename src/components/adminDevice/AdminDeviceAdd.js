@@ -15,24 +15,23 @@ const AdminDeviceAdd = () => {
       .post(
         "http://localhost:8084/api/v1/admin/device",
         {
-            specificDeviceTopicSubName: newDevice.specificDeviceTopicSubName,
+          specificDeviceTopicSubName: newDevice.specificDeviceTopicSubName,
         },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
-       
       )
       .then(function (response) {
         console.log(response);
       })
       .catch(function (error) {
         console.log(error);
+      }).finally(() => {
+        navigate("/admin/devices");
       });
 
-      
-    navigate("/admin/devices");
   }
 
   return (
@@ -52,7 +51,7 @@ const AdminDeviceAdd = () => {
               className="submit"
               onClick={() =>
                 addDevice({
-                    specificDeviceTopicSubName: specificDeviceTopicSubName,
+                  specificDeviceTopicSubName: specificDeviceTopicSubName,
                 })
               }
             >
